@@ -37,18 +37,45 @@ int main()
 }
 
 
+//funcoes
+node* tree_insert(node* raiz, node* n){
+    node* y=NULL; node* x=raiz;
+    while(x!=NULL){
+        y=x;
+        if(n->chave < x->chave) x = x->esq;
+        else x = x->dir;
+    }
+    n->pai = y;
+    if(y==NULL)raiz = n;
+    else if(n->chave < y->chave) y->esq = n;
+    else y->dir = n;
+}
+
+void transplant(node* raiz, node* u, node* v){
+    if(u->pai==NULL) raiz = v;
+    else if(u==u->pai->esq) u->pai->esq = v;
+    else u->pai->dir = v;
+    if(v!=NULL){
+        v->pai = u->pai;
+    }
+};
 
 
 
-
-
-
-
-
-
-
-
-
-
+void tree_delete(node* z, node* raiz){
+    if(z->esq==NULL) transplant(raiz, z, z->dir);
+    else if(z->dir==NULL) transplant(raiz, z, z->esq);
+    else{
+        node* y = tree_minimum(z->dir);
+        if(y->pai!=z){
+            transplant(raiz, y, y->dir);
+            y->dir = z->dir;
+            y->dir->pai = y;
+        }
+        transplant(raiz, z, y);
+        y->esq = z->esq;
+        y->esq->pai = y;
+    }
+}
 
 
