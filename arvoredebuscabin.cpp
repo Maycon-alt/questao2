@@ -1,63 +1,54 @@
 #include <iostream>
-#include <cstdlib>
-#include <stack>
 
-typedef int TIPOCHAVE; // defino o tipo chave(onde vou guardar as coisas);
 
-typedef struct aux{ // estrutura do no;
-    TIPOCHAVE chave;
-    int *esq;
-    int *dir;
-}NO;
 
-typedef NO* PONT;
-
-PONT inicializa(){  //cria arvore e retorna NULL;
-    return NULL;
-}
-
-PONT criaNovoNo(TIPOCHAVE ch){
-    PONT* novoNo = new PONT;
-    novoNo->esq = NULL;
-    novoNo->dir = NULL;
-    novoNo->chave = ch;
-    return novoNo;
-}
-PONT adiciona(PONT raiz, PONT no){
-    pilha1.push(&raiz);
-    pilha2.push(&no);
-    if(raiz==NULL){
-        pilha1.pop();
-        pilha2.pop();
-        return no;
-    }
-    if(no->esq < raiz->chave){
-        raiz->esq = adiciona(raiz->esq, no);
-    }
-    else{
-        raiz->dir = adiciona(raiz->dir, no);
-    }
-    return raiz;
-}
+typedef struct node{
+    int chave;
+    struct node* pai;
+    struct node* esq;
+    struct node* dir;
+}node;
 
 int main()
 {
-    int i;
-    stack <int> pilha1;
-    stack <int> pilha2;
+    bool certo;
+    node* raiz=NULL; int aux;
+    printf("Bem vindo! Comece criando um no, no caso a raiz\n");
+    scanf("%d", &aux);
+    raiz = new node;
+    raiz->chave = aux; raiz->pai=NULL; raiz->esq=NULL; raiz->dir=NULL;
     
-    PONT r = inicializa();
-    if(r==NULL){
-        printf("criada com sucesso\n");
-        for(i=0;i<5;i++){
-            int x = rand()%10;
-            PONT no = criaNovoNo(x);
-            r = adiciona(r, no);
+    do{
+        printf("Digite:\n1-para inserir o no\n2-deletar um no\n3-para imprimir\n0-para sair\n");
+        scanf("%d", &aux);
+        
+        if(aux==1){
+            node* n;
+            printf("Digite o valor do no a ser criado:\n");
+            scanf("%d", &aux);
+            n = new node;
+            n->chave = aux; n->pai=NULL; n->esq=NULL; n->dir=NULL;
+            tree_insert(r, n);
         }
-    }
-    else{
-        printf("erro\n");
-    }
+        
+    }while(aux!=0);
 
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
