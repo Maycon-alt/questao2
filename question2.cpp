@@ -1,50 +1,105 @@
-#include <stdio.h>
-#include <iostream>
-#include <cstdlib>
+package tabela;
 
-int buscabin(int vetor[], int num, int tam);
-
-int main()
-{
-    int tam;
-    scanf("%d", &tam);
-    int vetor[tam];
-    
-    printf("digite os valores do vetor: \n");
-    for(int i=1; i<=tam;i++){
-        scanf("%d", &vetor[i]);
+public class Jogador extends Pessoa{
+    //Atributos
+    String posicao;
+    //Metodos Publicos
+    @Override
+    public void status(){
+        System.out.println("Nome:" +this.getNome());
+        System.out.println("Nacionalidade: " +this.getNacionalidade());
+        System.out.println("Posicao : " +this.getPosicao());
+        System.out.println("Idade: " +this.getIdade());
+        System.out.println("Titulos " +this.getTitulos());
+        System.out.println("Saude: "+this.getSaude());
     }
-    int num;
-    printf("digite o numero procurado:\n");
-    scanf("%d", &num);
-    
-    int posicao = buscabin(vetor, num, tam);
-    
-    if(posicao<0) printf("valor nao encontrado\n");
-    else printf("valor encontrado na posicao %d", posicao);
+    @Override
+    public void ganharTitulos(){
+        this.setTitulos(this.getTitulos() + 1);
+    }
+    //Metodos especiais
 
-    return 0;
-}
+    public String getNome() {
+        return nome;
+    }
 
-int buscabin(int vetor[], int num, int tam){
-    int p, q,r;
-    p=1; r=(tam+1)/2;
-    while(p<=r){
-        int q=(p+r)/2;
-        
-        if(vetor[2*q-1]<num) p=q+1;
-        else if(vetor[2*q-1]>num) p=q-1;
-        else if(vetor[2*q-1]==num) return 2*q-1;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNacionalidade() {
+        return nacionalidade;
+    }
+
+    public void setNacionalidade(String nacionalidade) {
+        this.nacionalidade = nacionalidade;
     }
     
-    p=1; r=(tam/2);
-    while(p<=r){
-        int q=(p+r)/2;
-        if(vetor[2*q]>num) p=q+1;
-        else if(vetor[2*q]<num) p= q-1;
-        else if(vetor[2*q]==num) return 2*q;
+    public String getPosicao() {
+        return posicao;
+    }
+
+    public void setPosicao(String nome) {
+        this.posicao = nome;
     }
     
-    return -1;
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public float getAltura() {
+        return altura;
+    }
+
+    public void setAltura(float altura) {
+        this.altura = altura;
+    }
+
+    public float getPeso() {
+        return peso;
+    }
+
+    public void setPeso(float peso) {
+        this.peso = peso;
+    }
+
+    public int getTitulos() {
+        return titulos;
+    }
+
+    public void setTitulos(int titulos) {
+        this.titulos = titulos;
+    }
+
+    public boolean getSaude() {
+        return saude;
+    }
+
+    public void setSaude(boolean saude) {
+        this.saude = saude;
+    }
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+    
+    public Jogador(String nome, String nacionalidade, int idade, float altura, float peso, int titulos, boolean saude, String posicao, String time) {
+        this.nome = nome;
+        this.nacionalidade = nacionalidade;
+        this.idade = idade;
+        this.altura = altura;
+        this.peso = peso;
+        this.titulos = titulos;
+        this.saude = saude;
+        this.posicao = posicao;
+        this.time = time;
+    }
     
 }
