@@ -1,87 +1,156 @@
-#include <iostream>
-#include <cstdlib>
-#include <list>
-#include <queue> 
-#include <fstream>
+package tabela;
+//import java.util.Vector;
+//import java.util.Arrays;
 
-using namespace std;
-int tempo=0;
-int aux;
-
-typedef struct vertice{
-    int grau;
-    int pai;
-    int dist;
-    int tempo;
-    char cor;
-    list<int> adj;
-}vertice;
-
-typedef struct grafo{
-    int numvert; // numero de vertices
-    int arestas; // nunmero de arestas
-    vertice *v;  // estrutura de 1 vertice;
-}grafo;
-
-bool criaGrafo(grafo &g); // cria o grafo
-bool buscaP(grafo &g, int u, int num); //passa o grafo, o vertice inicial e o numero a ser procurado
-
-
-int main()
-{
-    grafo g;
-    int num;
-    bool test1, test2;
-    printf("digite o numero a ser procurado:\n");
-    scanf("%d", &num);
+public class Time {
+    //Atributos
+    private final Jogador[] jogadores;
+    private final Comissao[] tecnicos;
+    private int indice1 = 0;
+    private final int indice2 = 0;
+    //private Vector<Jogador> jogadores;
+    //private Vector<Comissao> tecnicos;
+    private String nome;
+    private int titulosT;
+    private int vitorias;
+    private int derrotas;
+    private int pontos;
+    private int golsM;
+    private int golsS;
+    private int Sdg;
+    private int numpartida;
     
-    test1 = criaGrafo(g);
-    if(test1) printf("grafo criado\n");
-    else printf("grafo nao criado\n");
+    //Pessoa a = new Jogador("maycon", "brasileiro", 20, 1, 64, 0, true , "Goleiro", "vasco");
     
-    test2 = buscaP(g, 0, num);
-    if(test2) printf("numero encontrado\n");
-    else printf("numero nao encontrado\n");
-    
-
-    return 0;
-}
-
-bool criaGrafo(grafo &g){
-    g.numvert=0; g.arestas=0; g.v=NULL;
-    ifstream arq; arq.open("arquivo.txt"); if(arq.fail()) return false;
-    arq >> g.numvert; //passa do arquivo para a variavel g.numvert o numero de vertices
-    g.v = new vertice[g.numvert]; //alocação dinamica de memoria para os vertices
-    
-    for(int i=0; i<g.numvert;i++){
-        arq >> g.v[i].grau;// passa o grau de cada vertices
-        g.v[i].pai = -1;
-        g.v[i].tempo = 9999;
-        g.v[i].dist = 0;
-        g.v[i].cor = 'b';
-        for(int k=0; k<g.v[i].grau;k++){
-            arq >> aux; //passa os vizinhos do arquivo pra aux
-            g.v[i].adj.push_back(aux); //coloca os vizinhos na lista
-        }
+    //Metodos Publicos
+    public void status(){
+        System.out.println("#################################################");
+        System.out.println("Nome : " +this.getNome());
+        System.out.println("Pontos : " + this.getPontos());
+        System.out.println("Gols Marcados : " + this.getGolsM());
+        System.out.println("Gols Sofridos : " + this.getGolsS());
+        System.out.println("Saldo de gols : " + this.getSdg());
+        System.out.println("Numero de vitorias : " + this.getVitorias());
+        System.out.println("Numero de derrotas : " + this.getDerrotas());
+        System.out.println("Numero de partidas : " + this.getNumpartida());
+        System.out.println("Titulos : " + this.getTitulosT());
     }
-    return true;
+    
+    
+    public void numMaxPartida(){
+        this.setNumpartida(this.getNumpartida() + 1);
+    }
+    public void adiciJogador(Jogador jogador){
+        jogadores[indice1] = jogador;
+        indice1++;
+        //jogadores.add(jogador);
+    }
+    /*public void adiciComissao(Comissao tecnico){
+        tecnicos.add(tecnico);
+    }*/
+    public Jogador procurar(String nome){
+    for(Jogador jogador : jogadores) {
+      if(jogador.getNome().equals(nome)) {
+        return jogador;
+      }
+    }
+        return null;
+    } 
+    public void timeCampeao(){
+        this.setTitulosT(this.getTitulosT() + 1);
+    }    
+    public void saldoGosls(){
+        this.setSdg(this.getGolsM() - this.getGolsS());
+    }
+    //Metodos Especiais
+
+    //public Time(String nome, int titulosT, int vitorias, int derrotas, int pontos, int golsM, int golsS) {
+    public Time(String nome) {
+        jogadores = new Jogador[5];
+        //jogadores = new Vector<Jogador>();
+        tecnicos = new Comissao[2];
+        //tecnicos = new Vector<Comissao>();
+        this.nome = nome;
+        this.titulosT = 0;
+        this.vitorias = 0;
+        this.derrotas = 0;
+        this.pontos = 0;
+        this.golsM = 0;
+        this.golsS = 0;
+    }
+
+    public int getNumpartida() {
+        return numpartida;
+    }
+
+    public void setNumpartida(int numpartida) {
+        this.numpartida = numpartida;
+    }
+    
+    public int getSdg() {
+        return Sdg;
+    }
+
+    public void setSdg(int Sdg) {
+        this.Sdg = Sdg;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getTitulosT() {
+        return titulosT;
+    }
+
+    public void setTitulosT(int titulosT) {
+        this.titulosT = titulosT;
+    }
+
+    public int getVitorias() {
+        return vitorias;
+    }
+
+    public void setVitorias(int vitorias) {
+        this.vitorias = vitorias;
+    }
+
+    public int getDerrotas() {
+        return derrotas;
+    }
+
+    public void setDerrotas(int derrotas) {
+        this.derrotas = derrotas;
+    }
+
+    public int getPontos() {
+        return pontos;
+    }
+
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
+    }
+
+    public int getGolsM() {
+        return golsM;
+    }
+
+    public void setGolsM(int golsM) {
+        this.golsM = golsM;
+    }
+
+    public int getGolsS() {
+        return golsS;
+    }
+
+    public void setGolsS(int golsS) {
+        this.golsS = golsS;
+    }
+    
+    
 }
 
-bool buscaP(grafo &g, int u, int num){
-    list<int>::iterator it;
-    g.v[u].cor = 'c';
-    g.v[u].tempo = ++tempo;
-    for(it=g.v[u].adj.begin(); it!=g.v[u].adj.end(); ++it){
-        aux = *it;
-        if(aux==num){
-            return true;
-        }
-        if(g.v[u].cor=='b'){
-            g.v[u].cor = 'c';
-            g.v[u].pai = u;
-            buscaP(g, aux, num);
-        }
-    }
-    g.v[u].cor = 'p';
-    return false;
-}
