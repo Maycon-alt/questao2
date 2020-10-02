@@ -1,63 +1,106 @@
-#include <iostream>
-#include <cstdlib>
-#include <fstream>
-#include <list>
+package tabela;
 
-using namespace std;
-int tempo=0;
-int aux;
-
-typedef struct vertice{
-    int grau;
-    int pai;
-    int dist;
-    int tempo;
-    char cor;
-    list<int> adj;
-}vertice;
-
-typedef struct grafo{
-    int grau;
-    int arestas;
-    vertice *v;
-}grafo;
-
-bool criarGrafo(grafo &g);
-
-
-int main()
-{
-    grafo g;
-    bool ver;
-    ver = criarGrafo(g);
-    
-    if(ver==true){
-        printf("criado\n");
+public class Jogador extends Pessoa{
+    //Atributos
+    String posicao;
+    //Metodos Publicos
+    @Override
+    public void status(){
+        System.out.println("Nome:" +this.getNome());
+        System.out.println("Nacionalidade: " +this.getNacionalidade());
+        System.out.println("Posicao : " +this.getPosicao());
+        System.out.println("Idade: " +this.getIdade());
+        System.out.println("Titulos " +this.getTitulos());
+        System.out.println("Saude: "+this.getSaude());
     }
-    else printf("erro\n");
-
-    return 0;
-}
-bool criarGrafo(grafo &g){
-    g.grau=0; g.arestas=0; g.v=NULL;
-    ifstream arq; 
-    arq.open("arquivo.txt");
-    if(arq.fail()) return false;
-    arq >> g.grau;
-    g.v = new vertice[g.grau];
-    
-    for(int i; i<g.grau;i++){
-        arq>> g.v[i].grau;
-        
-        g.v[i].pai = -1;
-        g.v[i].tempo = 9999;
-        g.v[i].dist = 0;
-        g.v[i].cor = 'b'; //branco
-        
-        for(int k; k<g.v[i].grau;k++){
-            arq>>aux;
-            g.v[i].adj.push_back(aux);
-        }
+    @Override
+    public void ganharTitulos(){
+        this.setTitulos(this.getTitulos() + 1);
     }
-    return true;
+    //Metodos especiais
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNacionalidade() {
+        return nacionalidade;
+    }
+
+    public void setNacionalidade(String nacionalidade) {
+        this.nacionalidade = nacionalidade;
+    }
+    
+    public String getPosicao() {
+        return posicao;
+    }
+
+    public void setPosicao(String nome) {
+        this.posicao = nome;
+    }
+    
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public float getAltura() {
+        return altura;
+    }
+
+    public void setAltura(float altura) {
+        this.altura = altura;
+    }
+
+    public float getPeso() {
+        return peso;
+    }
+
+    public void setPeso(float peso) {
+        this.peso = peso;
+    }
+
+    public int getTitulos() {
+        return titulos;
+    }
+
+    public void setTitulos(int titulos) {
+        this.titulos = titulos;
+    }
+
+    public boolean getSaude() {
+        return saude;
+    }
+
+    public void setSaude(boolean saude) {
+        this.saude = saude;
+    }
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+    
+    public Jogador(String nome, String nacionalidade, int idade, float altura, float peso, int titulos, boolean saude, String posicao, String time) {
+        this.nome = nome;
+        this.nacionalidade = nacionalidade;
+        this.idade = idade;
+        this.altura = altura;
+        this.peso = peso;
+        this.titulos = titulos;
+        this.saude = saude;
+        this.posicao = posicao;
+        this.time = time;
+    }
+    
 }
+
